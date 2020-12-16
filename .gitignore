@@ -1,9 +1,12 @@
 
 
 TextCapitalizer/.settings/
-
 TextCapitalizer/.classpath
 TextCapitalizer/.project
+
+ExceptionHandling/.settings/
+ExceptionHandling/.classpath
+ExceptionHandling/.project
 
 
 *.txt
