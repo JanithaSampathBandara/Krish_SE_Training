@@ -1,6 +1,10 @@
 
+
 TextCapitalizer/.settings/
-/.settings/
+
+TextCapitalizer/.classpath
+TextCapitalizer/.project
+
 
 *.txt
 
