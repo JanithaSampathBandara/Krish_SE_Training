@@ -23,7 +23,7 @@ public class Application {
 	    	fileManager.readFile(file);
 	    }
 	    catch(IOException ioException) {
-	    	ioException.printStackTrace();
+	    	System.out.println("Additional Info : " + ioException);
 	    }
 	    
 	    
