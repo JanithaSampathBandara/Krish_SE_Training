@@ -9,11 +9,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class FileManager {
 	
-void readFile(String fileName) throws IOException{
+void readFile(String fileName) throws IOException, ArithmeticException{
 		
 		System.out.println("Reading  File");
-		
-	//	FileReader fr = new FileReader(fileName);
 		
 		FileInputStream fileInputStream	= null;
 		XSSFWorkbook workBook = null;
@@ -29,28 +27,30 @@ void readFile(String fileName) throws IOException{
 			 
 				String eid = "";
 				String name = "";
-				double basicSal = 0.0;
-				double incrementPerentage = 0.0;
-				double netSal = 0.0;
+				double basicSal = 0.00;
+				double incrementPerentage = 0.00;
+				double netSal = 0.00;
 			
 				int row = 1;
-			
+				Employee employee;
+				//Reading from excel sheet for Employeeid, Name, IncrementPercentage and NetSalary
 				while(sheet.getRow(row) != null) {
 				
 					eid = sheet.getRow(row).getCell(0).toString();
 					name = sheet.getRow(row).getCell(1).toString();
-				
 					basicSal = Double.parseDouble(sheet.getRow(row).getCell(2).toString());
-					//	System.out.println(basicSal);
-					//	basicSal = Double.parseDouble(sheet.getRow(row).getCell(2).toString());
 					incrementPerentage = Double.parseDouble(sheet.getRow(row).getCell(3).toString());
-					//	System.out.println(incrementPerentage);
-					Employee emp = new Employee(eid, name, basicSal, incrementPerentage);
+
+					employee = new Employee(eid, name, basicSal, incrementPerentage);
 						
-				 
-					//	System.out.println(emp.validateEmployee(eid));
-					netSal = emp.validateEmployee(eid);
-					System.out.println("Net Salary For Employee " + name + " = " + netSal);
+					
+					netSal = employee.validateEmployee(eid);
+					if(netSal != 0.00) {
+						System.out.println("Net Salary For Employee " + name + " = " + netSal);
+					}
+					else {
+						System.out.println(employee.name + " Not An Executive Employee");
+					}
 				
 					row++;
 				}
