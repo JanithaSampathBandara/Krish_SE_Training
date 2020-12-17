@@ -18,13 +18,13 @@ public class Employee {
 
 	// Validate whether the employee is a executive or not
 	double validateEmployee(String eid){
-		double sal = 0.0;
+		double salary = 0.0;
 		// Validate employee as an executive employee if eid has 'E' letter
 		if(eid.contains("E")) {
-			sal =  sm.calculateSalary(this.eid, this.basicSal, this.incrementPercentage);
+			salary =  sm.calculateSalary(this.eid, this.basicSal, this.incrementPercentage);
 		}
 		
-		return sal;
+		return salary;
 	}
 	
 	

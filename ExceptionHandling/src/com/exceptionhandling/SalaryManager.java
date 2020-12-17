@@ -6,7 +6,6 @@ double calculateSalary(String eid, double basicSal, double incrementPercentage) 
 		
 		double netSal = 0.0;
 		netSal = basicSal + (basicSal * (incrementPercentage / 100));
-		Thread.dumpStack();
 		
 		return netSal;
 			

@@ -8,21 +8,33 @@ public class Application {
 
 	public static void main(String[] args) {
 		//Excel file should open is in the file folder (Salary.xs)
-				FileDialog fd = new FileDialog((Frame)null, "Select A Text File To Read", FileDialog.LOAD);
-			    fd.setVisible(true);
-			    String file = fd.getDirectory() + fd.getFile();
-			    System.out.println("Location :" + fd.getDirectory() + file);
+				FileDialog fileDialog = new FileDialog((Frame)null, "Select A Text File To Read", FileDialog.LOAD);
+				fileDialog.setVisible(true);
+			    String file = fileDialog.getDirectory() + fileDialog.getFile();
+			    System.out.println("Location :" + fileDialog.getDirectory() + file);
 				
-			    FileManager fm = new FileManager();
+			    FileManager fileManager = new FileManager();
 			    
 			    try {
-					fm.readFile(file);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}finally
+			    	fileManager.readFile(file);
+				}
+			    catch(ArithmeticException arithmeticException) {
+					
+			    	arithmeticException.printStackTrace();
+				}
+			    
+			    catch (FileNotFoundException fileNotFoundException) {
+			    	
+					fileNotFoundException.printStackTrace();
+				}
+			    catch(IOException ioException) {
+			    	
+			    	ioException.printStackTrace();
+			    }
+			    
+			    finally
 			    {
-					fd.dispose();
+			    	fileDialog.dispose();
 			    }
 
 	}

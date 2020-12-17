@@ -1,5 +1,6 @@
 package com.exceptionhandling;
  import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -8,61 +9,58 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class FileManager {
 	
-void readFile(String fileName) throws IOException {
+void readFile(String fileName) throws IOException{
 		
 		System.out.println("Reading  File");
 		
 	//	FileReader fr = new FileReader(fileName);
 		
-		FileInputStream fis	= null;
-		XSSFWorkbook wb = null;
+		FileInputStream fileInputStream	= null;
+		XSSFWorkbook workBook = null;
 		XSSFSheet sheet = null;
 		
 		if(validateFile(fileName)) {
+			
 			try {
 				
-			fis = new FileInputStream(fileName);
-			wb = new XSSFWorkbook(fis);
-			sheet = wb.getSheetAt(0);
+				fileInputStream = new FileInputStream(fileName);
+				workBook = new XSSFWorkbook(fileInputStream);
+				sheet = workBook.getSheetAt(0);
 			 
-			String eid = "";
-			String name = "";
-			double basicSal = 0.0;
-			double incrementPerentage = 0.0;
-			double netSal = 0.0;
+				String eid = "";
+				String name = "";
+				double basicSal = 0.0;
+				double incrementPerentage = 0.0;
+				double netSal = 0.0;
 			
-			int row = 1;
+				int row = 1;
 			
-			while(sheet.getRow(row) != null) {
+				while(sheet.getRow(row) != null) {
 				
-				eid = sheet.getRow(row).getCell(0).toString();
-				name = sheet.getRow(row).getCell(1).toString();
+					eid = sheet.getRow(row).getCell(0).toString();
+					name = sheet.getRow(row).getCell(1).toString();
 				
-				basicSal = Double.parseDouble(sheet.getRow(row).getCell(2).toString());
-			//	System.out.println(basicSal);
-			//	basicSal = Double.parseDouble(sheet.getRow(row).getCell(2).toString());
-				incrementPerentage = Double.parseDouble(sheet.getRow(row).getCell(3).toString());
-			//	System.out.println(incrementPerentage);
-				Employee emp = new Employee(eid, name, basicSal, incrementPerentage);
+					basicSal = Double.parseDouble(sheet.getRow(row).getCell(2).toString());
+					//	System.out.println(basicSal);
+					//	basicSal = Double.parseDouble(sheet.getRow(row).getCell(2).toString());
+					incrementPerentage = Double.parseDouble(sheet.getRow(row).getCell(3).toString());
+					//	System.out.println(incrementPerentage);
+					Employee emp = new Employee(eid, name, basicSal, incrementPerentage);
 						
 				 
-			//	System.out.println(emp.validateEmployee(eid));
-				netSal = emp.validateEmployee(eid);
-				System.out.println("Net Salary For Employee " + name + " = " + netSal);
+					//	System.out.println(emp.validateEmployee(eid));
+					netSal = emp.validateEmployee(eid);
+					System.out.println("Net Salary For Employee " + name + " = " + netSal);
 				
-				row++;
-			}
+					row++;
+				}
+			
 			
 		}
 		finally {
-			
-			if(fis!=null) {
-				fis.close();
-			}
-			
-			
+			fileInputStream.close();
 		}
-			
+
 	}
 
 }
@@ -95,8 +93,5 @@ void readFile(String fileName) throws IOException {
 		
 		return validation;
 		}
-	
-	
-	
 
 }

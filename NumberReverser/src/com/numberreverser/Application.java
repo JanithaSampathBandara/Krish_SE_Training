@@ -8,11 +8,11 @@ public class Application {
 
 	public static void main(String[] args) throws IOException  {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedReader buffredReader = new BufferedReader(new InputStreamReader(System.in));
 		
 		System.out.println("Enter any number which is not ended with Zero : ");
 		
-		BigInteger number = new BigInteger(br.readLine());
+		BigInteger number = new BigInteger(buffredReader.readLine());
 		BigInteger remainder = null;
 		
 		
