@@ -1,3 +1,4 @@
+package com.exceptionhandling;
 import java.awt.FileDialog;
 import java.awt.Frame;
 import java.io.FileNotFoundException;
