@@ -12,8 +12,29 @@ NumberReverser/.settings/
 NumberReverser/.classpath
 NumberReverser/.project
 
+DesignPatterns/Builder/.settings/
+DesignPatterns/Builder/.classpath
+DesignPatterns/Builder/.project
 
+DesignPatterns/ChainOfResponsibility/ATMDispenser/.settings/
+DesignPatterns/ChainOfResponsibility/ATMDispenser/.classpath
+DesignPatterns/ChainOfResponsibility/ATMDispenser/.project
 
+DesignPatterns/Factory/.settings/
+DesignPatterns/Factory/.classpath
+DesignPatterns/Factory/.project
+
+DesignPatterns/Memento/.settings/
+DesignPatterns/Memento/.classpath
+DesignPatterns/Memento/.project
+
+DesignPatterns/Prototype/.settings/
+DesignPatterns/Prototype/.classpath
+DesignPatterns/Prototype/.project
+
+DesignPatterns/Singleton/.settings/
+DesignPatterns/Singleton/.classpath
+DesignPatterns/Singleton/.project
 
 *.txt
 

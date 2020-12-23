@@ -20,16 +20,16 @@ public class Application {
 				}
 			    catch(ArithmeticException arithmeticException) {
 					
-			    	System.out.println("Additional Info : " + arithmeticException);
+			    	arithmeticException.printStackTrace();
 				}
 			    
 			    catch (FileNotFoundException fileNotFoundException) {
 			    	
-			    	System.out.println("Additional Info : " + fileNotFoundException);
+			    	fileNotFoundException.printStackTrace();
 				}
 			    catch(IOException ioException) {
 			    	
-			    	System.out.println("Additional Info : " + ioException);
+			    	ioException.printStackTrace();
 			    }
 			    
 			    finally
