@@ -3,16 +3,24 @@ package com.janitha.designpatterns.chainofresponsibility.atmdispenser;
 public class FiftyHandler extends Handler{
 
 	@Override
-	public int dispense(Currency currency) {
+	public String dispense(Currency currency) {
 		
-		if(currency.getAmount() >= 50) {
+		double remainder;
+		if((remainder = currency.getAmount() % 50) == 0) {
 			currency.setFiftyCount((int)currency.getAmount() / 50);
-			currency.setAmount(currency.getAmount() % 50);
-			return currency.getFiftyCount();
+			return "50 Notes" + currency.getFiftyCount();
 		}
 		else {
+			if(currency.getAmount() >= 50) {
+				currency.setFiftyCount((int)currency.getAmount() / 50);
+				currency.setAmount(remainder);
+				System.out.println("50 Notes : " + currency.getFiftyCount());
+			}
+			
 			return successor.dispense(currency);
+
 		}
+		
 	}
 
 }

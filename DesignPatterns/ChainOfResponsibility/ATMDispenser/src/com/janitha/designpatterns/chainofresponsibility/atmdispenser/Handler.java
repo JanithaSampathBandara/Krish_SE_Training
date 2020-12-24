@@ -8,6 +8,6 @@ public abstract class Handler {
 		this.successor = successor;
 	}
 
-	public abstract int dispense(Currency currency);
+	public abstract String dispense(Currency currency);
 
 }

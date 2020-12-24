@@ -3,15 +3,22 @@ package com.janitha.designpatterns.chainofresponsibility.atmdispenser;
 public class TwentyHandler extends Handler{
 
 	@Override
-	public int dispense(Currency currency) {
+	public String dispense(Currency currency) {
 		
-		if(currency.getAmount() >= 20) {
+		double remainder;
+		if((remainder = currency.getAmount() % 20) == 0) {
 			currency.setTwentyCount((int)currency.getAmount() / 20);
-			currency.setAmount(currency.getAmount() % 20);
-			return currency.getTwentyCount();
+			return "20 Notes : " + currency.getTwentyCount();
 		}
 		else {
+			if(currency.getAmount() >= 20) {
+				currency.setTwentyCount((int)currency.getAmount() / 20);
+				currency.setAmount(remainder);
+				System.out.println("20 Notes : " + currency.getTwentyCount());
+			}
+			
 			return successor.dispense(currency);
+
 		}
 		
 	}

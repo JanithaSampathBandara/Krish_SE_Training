@@ -10,6 +10,7 @@ public class Application {
 		FiveHundredHandler fiveHundredHandler = new FiveHundredHandler();
 		HundredHandler hundredHandler = new HundredHandler();
 		FiftyHandler fiftyHandler = new FiftyHandler();
+		TwentyHandler twentyHandler = new TwentyHandler();
 		TenHandler tenHandler = new TenHandler();
 		FiveHandler fiveHandler = new FiveHandler();
 		TwoHandler twoHandler = new TwoHandler();
@@ -22,11 +23,15 @@ public class Application {
 		thousandHandler.setSuccessor(fiveHundredHandler);
 		fiveHundredHandler.setSuccessor(hundredHandler);
 		hundredHandler.setSuccessor(fiftyHandler);
-		fiftyHandler.setSuccessor(tenHandler);
+		fiftyHandler.setSuccessor(twentyHandler);
+		twentyHandler.setSuccessor(tenHandler);
 		tenHandler.setSuccessor(fiveHandler);
 		fiveHandler.setSuccessor(twoHandler);
 		
-		Currency currency = new Currency(25000);
+		//23688
+		Currency currency = new Currency(23688);
+		System.out.println("Amount : " + currency.getAmount());
+		System.out.println();
 		System.out.println(atm.dispense(currency));
 		
 
