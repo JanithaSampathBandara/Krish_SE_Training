@@ -1,3 +1,26 @@
+Assignment-2/assignment2-commons/.idea/
+Assignment-2/assignment2-commons/target/
+Assignment-2/assignment2-commons/assignment2-commons.iml
+
+
+Assignment-2/project-service/.idea/
+Assignment-2/project-service/.mvn/
+Assignment-2/project-service/target/
+Assignment-2/project-service/HELP
+
+Assignment-2/task-service/.idea/
+Assignment-2/taskservice/.mvn/
+Assignment-2/task-service/target/
+Assignment-2/task-service/HELP
+
+
+*.txt
+.mvn/
+mvnw
+.md
+*.cmd
+.iml
+.idea/
 
 
 TextCapitalizer/.settings/

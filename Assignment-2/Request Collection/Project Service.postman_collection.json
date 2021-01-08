@@ -1,0 +1,179 @@
+{
+	"info": {
+		"_postman_id": "d35f15ec-19a3-4eac-a79e-0a99dcf19821",
+		"name": "Project Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Project",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Project_05\",\r\n    \"owner\": \"Perera\",\r\n    \"duration\": \"2 months\",\r\n    \"budget\": 10000.0,\r\n    \"status\": \"Hold\",\r\n    \"resource\": \"Manager\",\r\n    \"startDate\": \"2021-06-01\",\r\n    \"endDate\": \"2022-01-06\",\r\n    \"description\": \"Project 5\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/services/projects",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"services",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Projects",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/services/projects",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"services",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Project By Code",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/services/projects/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"services",
+						"projects",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Project",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"budget\": 30000.00,\r\n    \"status\": \"Completed\",\r\n    \"resource\": \"Developer\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/services/projects/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"services",
+						"projects",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Project",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/services/projects/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"services",
+						"projects",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Project Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/services/projects/5/status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"services",
+						"projects",
+						"5",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Active Projects",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/services/projects/?status=Active",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"services",
+						"projects",
+						""
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "Active"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
