@@ -1,0 +1,35 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: driver-service
+          uri: lb://DRIVER
+          predicates:
+            - Path=/services/drivers/**
+        - id: offence-service
+          uri: lb://OFFENCE
+          predicates:
+            - Path=/services/offences/**,/services/fines/**
+        - id: officer-service
+          uri: lb://OFFICER
+          predicates:
+            - Path=/services/officers/**
+        - id: payment-service
+          uri: lb://PAYMENT
+          predicates:
+            - Path=/services/payments/**
+    discovery:
+      enabled: true
+  application:
+    name: API-GATEWAY
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+server:
+  port: 8989
+

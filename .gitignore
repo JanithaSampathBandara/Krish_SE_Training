@@ -16,6 +16,53 @@ Assignment-2/task-service/HELP.md
 Assignment-2/task-service/task-service.iml
 
 
+FinalProject/TrafficOffenceManagementSystem/api-gateway/.idea/
+FinalProject/TrafficOffenceManagementSystem/api-gateway/.mvn/
+FinalProject/TrafficOffenceManagementSystem/api-gateway/target/
+FinalProject/TrafficOffenceManagementSystem/api-gateway/HELP.md
+
+FinalProject/TrafficOffenceManagementSystem/commons/.idea/
+FinalProject/TrafficOffenceManagementSystem/commons/target/
+FinalProject/TrafficOffenceManagementSystem/commons/commons.iml
+FinalProject/TrafficOffenceManagementSystem/trafficoffencemanagement-commons.iml
+
+FinalProject/TrafficOffenceManagementSystem/discovery-service/discovery-service/.idea/
+FinalProject/TrafficOffenceManagementSystem/discovery-service/discovery-service/.mvn/
+FinalProject/TrafficOffenceManagementSystem/discovery-service/discovery-service/target/
+FinalProject/TrafficOffenceManagementSystem/discovery-service/discovery-service/HELP.md
+
+FinalProject/TrafficOffenceManagementSystem/driver-service/.idea/
+FinalProject/TrafficOffenceManagementSystem/driver-service/.mvn/
+FinalProject/TrafficOffenceManagementSystem/driver-service/target/
+FinalProject/TrafficOffenceManagementSystem/driver-service/driver-service.iml
+FinalProject/TrafficOffenceManagementSystem/driver-service/HELP.md
+
+FinalProject/TrafficOffenceManagementSystem/oauth-server/.idea/
+FinalProject/TrafficOffenceManagementSystem/oauth-server/.mvn/
+FinalProject/TrafficOffenceManagementSystem/oauth-server/target/
+FinalProject/TrafficOffenceManagementSystem/oauth-server/auth-server.iml
+FinalProject/TrafficOffenceManagementSystem/oauth-server/HELP.md
+
+
+FinalProject/TrafficOffenceManagementSystem/offence-service/.idea/
+FinalProject/TrafficOffenceManagementSystem/offence-service/.mvn/
+FinalProject/TrafficOffenceManagementSystem/offence-service/target/
+FinalProject/TrafficOffenceManagementSystem/offence-service/auth-server.iml
+FinalProject/TrafficOffenceManagementSystem/offence-service/HELP.md
+
+FnalProject/TrafficOffenceManagementSystem/officer-service/.idea/
+FinalProject/TrafficOffenceManagementSystem/officer-service/.mvn/
+FinalProject/TrafficOffenceManagementSystem/officer-service/target/
+FinalProject/TrafficOffenceManagementSystem/officer-service/auth-server.iml
+FinalProject/TrafficOffenceManagementSystem/officer-service/HELP.md
+
+FnalProject/TrafficOffenceManagementSystem/payment-service/.idea/
+FinalProject/TrafficOffenceManagementSystem/payment-service/.mvn/
+FinalProject/TrafficOffenceManagementSystem/payment-service/target/
+FinalProject/TrafficOffenceManagementSystem/payment-service/auth-server.iml
+FinalProject/TrafficOffenceManagementSystem/payment-service/HELP.md
+
+
 *.txt
 .mvn/
 mvnw
@@ -60,6 +107,9 @@ DesignPatterns/Prototype/.project
 DesignPatterns/Singleton/.settings/
 DesignPatterns/Singleton/.classpath
 DesignPatterns/Singleton/.project
+
+
+
 
 *.txt
 
