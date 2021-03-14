@@ -1,0 +1,397 @@
+
+
+<div class="container">
+    <form #fineForm="ngForm" (ngSubmit)="onSubmit(fineForm)">
+        <div class="row">
+            <div class="col-md-6 mx-auto"> <!-- mx-auto class is to center the whole division-->
+                <div class="card" style="border:solid 3px darkred">
+                    <div class="card-body" >
+                        <div class="row">
+                            <div class="col">
+                                <div style="text-align: center;">
+                                    <img src="assets/fine.svg" width="150px" style="border: 3px solid rgb(17, 219, 10)" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div style="text-align: center;">
+                                    <h2>Fine Management</h2>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class ="row">
+                            <div class="col">
+                                <hr/><br/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group mb-2">
+                                
+                                    <input minlength="5" #licenseNo="ngModel" required type="text" [ngClass]="[licenseNo.dirty && licenseNo.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', licenseNo.dirty && licenseNo.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]"  id="licenseno" placeholder="Enter License Number" [(ngModel)]="fine.licenseNo" name="licenseno">
+                                
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-primary" type="button" (click)="getDriverByLicense(fine.licenseNo)">Search Driver</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col">
+         <!--<hr/>-->  <br/>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="driverFound && licenseNo.value != null" class="container" style="border: solid 3px green">
+    <h1 style="text-align: center;">Driver Details</h1>
+
+    
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">licenseNo</th>
+            <th scope="col">Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">NIC</th>
+            <th scope="col">Phone</th>
+            <th scope="col">DOB</th>
+            <th scope="col">Gender</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr> <!--<tr *ngFor="let driver of driver">-->
+            <th scope="row">1</th>
+            <td>{{driver.licenseNo}}</td>
+            <td>{{driver.name}}</td>
+            <td>{{driver.address}}</td>
+            <td>{{driver.nic}}</td>
+            <td>{{driver.phone}}</td>
+            <td>{{driver.dob}}</td>
+            <td>{{driver.gender}}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+<div class="row">
+    <div class="col">
+        <hr/><br />
+    </div>
+</div>
+
+<div *ngIf="fineFound" class="container-fluid" style="border: solid 3px green">
+    <h1 style="text-align: center;">Fines To Be Paid</h1>
+
+    
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Offence</th>
+            <th scope="col">Vehicle No</th>
+            <th scope="col">Place</th>
+            <th scope="col">Date and Time</th>
+            <th scope="col">Issued Officer</th>
+            <th scope="col">Court</th>
+            <th scope="col">Court Date</th>
+            <th scope="col">Police Station</th>
+            <th scope="col">Valid From</th>
+            <th scope="col">Valid To</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr #ref *ngFor="let finee of fines ; index as i">
+            <th scope="row">{{i+1}}</th>
+            <td>{{fineNames[i]}}</td>
+        <!--  <td>{{getOffenceById(fine.offenceId)}} {{offenceName}}</td> -->
+        <!--    <td>{{finee.offenceId}}</td> -->
+       <!-- <td>{{  getOffence(finee.offenceId)}}</td> --> 
+            <td>{{finee.vehicleNo}}</td>
+            <td>{{finee.place}}</td>
+            <td>{{finee.dateAndTimeOfOffence}}</td>
+            <td>{{finee.issuingOfficer}}</td>
+            <td>{{finee.court}}</td>
+            <td>{{finee.courtDate}}</td>
+            <td>{{finee.policeStation}}</td>
+            <td>{{finee.validFrom}}</td>
+            <td>{{finee.validTo}}</td>
+            <td *ngIf="role === 'ROLE_admin' || role === 'ROLE_officer' "><button class="btn btn-warning" (click)="info(finee)">Edit</button></td>
+           <!-- <td *ngIf="role === 'ROLE_admin'"><button class="btn btn-danger" (click)="deleteFine(finee.fineId)">Delete</button></td> -->
+
+          </tr>
+        </tbody>
+      </table>
+</div><br /><hr>
+
+<div *ngIf="fineFound" class=container style="border: 3px solid darkred;">
+    <br />
+    <div class="row">
+        <div class="col mx-auto" >
+            <h2 style="text-align: center;">Total Amount To Be Paid --> {{amount | currency:'Rs.'}}</h2>
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="col-md-4 mx-auto" style="width: 50%; margin: 0 auto">
+            <button [disabled] = "paymentNotAvailable" style="width: 50%; margin: 0 auto;
+            display: block;;" class="btn btn-success" (click)="pay(fine.licenseNo, fine)">Pay</button>
+        </div>
+        
+    </div><br />
+
+</div>
+      
+<div class="row">
+    <div class="col">
+        <hr/><br />
+    </div>
+</div>
+
+                          
+<div *ngIf="driverFound && (role === 'ROLE_admin' || role === 'ROLE_officer') " class="container" style="border: solid 3px green">
+    
+    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)"><br />
+                {{driverFound}}        
+        <!--
+            <div class="row">
+                <div class="col-md-2">   
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><b>Fine Id</b></div>
+                        </div>
+                                      
+                        <input pattern="^[a-zA-Z_ ]*$" minlength="3" #fineId="ngModel" required type="text" [ngClass]="[fineId.dirty && fineId.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', fineId.dirty && fineId.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]"  id="fineId" placeholder="Fine Id"  name="fineId" [(ngModel)]="fine.fineId">
+                                      
+                    </div><br />
+                </div>
+
+                <div class="col-md-5">   
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><b>License Number</b></div>
+                        </div>
+                                          
+                        <input #licenseNo="ngModel" minlength="8"  required type="text" [ngClass]="[licenseNo.dirty && licenseNo.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', licenseNo.dirty && licenseNo.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]" id="licenseNo" placeholder="Enter Driver's License Number" [(ngModel)]="fine.licenseNo" name="licenseNo">
+                    
+                    </div><br />
+                </div>
+
+                <div class="col-md-5">   
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><b>Nic</b></div>
+                        </div>
+                                              
+                        <input #nic="ngModel" minlength="3"  required type="text" [ngClass]="[nic.dirty && nic.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', nic.dirty && nic.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]" id="nic" placeholder="Enter Driver's Nic" [(ngModel)]="fine.nic" name="nic">                   
+                    
+                    </div><br />
+                </div>
+
+            </div>
+            -->
+            
+            <div class="row">
+                
+                <div class="col-md-6">   
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><b>Vehicle Number</b></div>
+                        </div>
+                                      
+                            <input #vehicleno="ngModel" minlength="8"  required type="text" [ngClass]="[vehicleno.dirty && vehicleno.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', vehicleno.dirty && vehicleno.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]" id="vehicleNo" placeholder="Enter Nehicle Number" [(ngModel)]="fine.vehicleNo" name="vehicleNuumber">
+                                 
+                    </div> <br />
+                </div>
+
+                <div class="col-md-6">   
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><b>Date And Time Of Offence</b></div>
+                        </div>
+
+                        <input #datetime="ngModel" required type="date" min="1800-01-01" max={{ctoday}} id="dateAndTime" name="dateAndTime" [(ngModel)]="fine.dateAndTimeOfOffence" [ngClass]="[datetime.dirty && datetime.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', datetime.dirty && datetime.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]">
+            
+                    </div><br />
+                </div>
+
+            </div>
+            
+            <div class="row">
+                <div class="col">   
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><b>Place</b></div>
+                        </div>
+                                      
+                        <input #place="ngModel" minlength="3"  required type="text" [ngClass]="[place.dirty && place.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', place.dirty && place.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]" id="place" placeholder="Enter The Place" [(ngModel)]="fine.place" name="place">
+                                 
+                    </div><br />
+                </div>
+
+            </div>
+            
+            <div class="row">
+                <div class="col">   
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><b>Offence</b></div>
+                        </div>
+                                      
+                        <select #offenceName="ngModel" name="off" required [ngClass]="[offenceName.dirty && offenceName.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', offenceName.dirty && offenceName.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]" id="exampleFormControlSelect1" [(ngModel)]="fine.offenceId">
+                            <option disabled selected="selected">Select The Offence</option>
+                            <option value = "1">Speeding</option>
+                            <option value = "2">Parking</option>
+                            <option value = "3">Signals/directions of Police Officer</option>
+                            <option value = "4">Without driving license</option>
+                            <option value = "5">Driving under 18 years of age</option>
+                            <option value = "6">Employing person without driving license</option>
+                            <option value = "7">R.I not carried</option>
+                            <option value = "8">Contravening R.L restrictions</option>
+                            <option value = "9">Signals by driver</option>
+                            <option value = "10">Position of driver</option>
+                        </select> <!--   <input #offence="ngModel" minlength="3"  required type="text" [ngClass]="[offence.dirty && offence.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', offence.dirty && offence.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]" id="offenceId"  [(ngModel)]="fine.offenceId" name="offenceId"> --> 
+                        {{'x' + fine.offenceId}} 
+                    </div> <br />
+                </div>
+            </div>
+                                
+            
+            <div class="row">
+                <div class="col-md-6">   
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><b>Valid From</b></div>
+                        </div>
+                                      
+                        <input #validFrom="ngModel"  required type="date"  id="validfrom" min="1800-01-01" max={{ctoday}} [(ngModel)]="fine.validFrom" name="validfrom" [ngClass]="[validFrom.dirty && validFrom.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', validFrom.dirty && validFrom.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]">
+                                 
+                    </div><br />
+                </div>
+                <div class="col-md-6">   
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><b>Valid To</b></div>
+                        </div>
+                                      
+                        <input class="form-control form-control-lg" #validTo="ngModel"  required type="date"  id="validTo" [(ngModel)]="fine.validTo" name="validTo">
+                                 
+                    </div><br />
+                </div>
+            </div>
+            
+ 
+                                
+            <div class="row">
+                <div class="col-md-6">   
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><b>Court</b></div>
+                        </div>
+                                      
+                        <input #court="ngModel" minlength="3"  required type="text" [ngClass]="[court.dirty && court.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', court.dirty && court.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]" id="court" placeholder="Enter The Court" [(ngModel)]="fine.court" name="court">
+                    </div><br />
+                </div>
+                <div class="col-md-6">   
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><b>Court Date</b></div>
+                        </div>
+                                      
+                        <input class="form-control form-control-lg" #courtDate="ngModel"  required type="date"  id="courtDate"  [(ngModel)]="fine.courtDate" name="courtDate">
+                    </div> <br />
+                </div>
+            </div>
+
+            
+            <div class="row">
+                <div class="col-md-6">   
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><b>Police Station</b></div>
+                        </div>
+                                      
+                        <input #policeStation="ngModel" minlength="3"  required type="text" [ngClass]="[policeStation.dirty && policeStation.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', policeStation.dirty && policeStation.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]" id="policeStation" placeholder="Enter Police Station" [(ngModel)]="fine.policeStation" name="policeStation">
+                                 
+                                 
+                    </div><br />
+                </div>
+                <div class="col-md-6">   
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><b>Issuing Officer</b></div>
+                        </div>
+                                      
+                        <input #issuingOfficer="ngModel" minlength="3"  required type="number" [ngClass]="[issuingOfficer.dirty && issuingOfficer.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', issuingOfficer.dirty && issuingOfficer.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]" id="issuingOfficer" placeholder="Enter Officer's Id" [(ngModel)]="fine.issuingOfficer" name="issuingOfficer">
+                                 
+                    </div><br />
+                </div>
+            </div>
+
+       <!--    <div class="row">
+                <div class="col-md-4 mx-auto">   
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><b>Status</b></div>
+                        </div>
+                        <select name = "janz" id="mySelect" class="form-control form-control-lg" id="exampleFormControlSelect1" [(ngModel)]="option">
+                            <option value={undefined} selected disabled hidden>Select The Status</option>
+                            <option value="1">paid</option>
+                            <option value="2">not-paid</option>
+                        </select>    
+                        {{option}}
+                        <button (click)="setOption()">btn</button>
+                        <script>
+                            function myFunction() { 
+                                document.getElementById("mySelect").selectedIndex = "2"; 
+                            }
+                        </script>      
+                        <input #status="ngModel" minlength="3"  required type="text" [ngClass]="[status.dirty && status.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', status.dirty && status.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]" id="status" placeholder="Enter Status" [(ngModel)]="fine.status" name="status">
+                                 
+                    </div><br />
+                </div>
+            </div> -->
+
+            <div class="row">
+                <div class="col">
+                    <hr/>
+                </div>
+            </div>
+            
+            
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="form-group>">
+                        <input [disabled]="licenseNo.invalid || issuingOfficer.invalid || policeStation.invalid || courtDate.invalid || court.invalid || validTo.invalid || validFrom.invalid || offenceName.invalid || place.invalid || datetime.invalid || vehicleno.invalid || licenseNo.invalid" type ="submit" (click)="createFine()" class="form-control btn btn-success btn-block form-control-lg" id="add" name="add" value="Add"> 
+                        <input [disabled]="licenseNo.invalid || issuingOfficer.invalid || policeStation.invalid || courtDate.invalid || court.invalid || validTo.invalid || validFrom.invalid || offenceName.invalid || place.invalid || datetime.invalid || vehicleno.invalid || licenseNo.invalid" type ="submit" (click)="updateFine(fine.fineId, fine)" class="form-control btn btn-warning btn-block form-control-lg" id="update" name="update" value="Update">
+                    <!--    <input [disabled]="licenseNo.invalid || issuingOfficer.invalid || policeStation.invalid || courtDate.invalid || court.invalid || validTo.invalid || validFrom.invalid || offenceName.invalid || place.invalid || datetime.invalid || vehicleno.invalid || licenseNo.invalid" *ngIf="role === 'ROLE_admin'" type ="submit" class="form-control btn btn-danger btn-block form-control-lg" id="delete" name="delete" value="Delete"> -->
+                    </div>
+                    <h6 style="text-align: center;">Already Signed Up? <a routerLink="/studentlogin">Log in here</a></h6>
+                </div>
+            </div>
+            
+            <a routerLink="#"> << Back to Home </a>
+                    
+    </form>
+    <button class="btn btn success" (click)="getOffence(1)">getoffence</button>
+</div>
+
+    
+    
+
+                      
+                     
+
+    
+    

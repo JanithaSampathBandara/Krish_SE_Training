@@ -78,8 +78,9 @@ public class DriverServiceImpl implements DriverService {
             existingDriver.get().setAddress(driver.getAddress());
             existingDriver.get().setNic(driver.getNic());
             existingDriver.get().setPhone(driver.getPhone());
+            existingDriver.get().setEmail(driver.getEmail());
             existingDriver.get().setGender(driver.getGender());
-            existingDriver.get().setDob(driver.getDob());
+            existingDriver.get().setDob(driver.getDob().toString()); // previous existingDriver.get().setDob(driver.getDob());
             existingDriver.get().setPassword(driver.getPassword());
            return driverRepository.save(existingDriver.get());
         }

@@ -1,6 +1,6 @@
 package com.janitha.trafficoffencemanagement.paymentservice.dto;
 
-public class FineResponse {
+public class PaymentResponse {
 
     private int statusCode;
     private String message;

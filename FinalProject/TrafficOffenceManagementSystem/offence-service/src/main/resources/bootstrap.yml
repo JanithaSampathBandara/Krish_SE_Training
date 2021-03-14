@@ -1,14 +1,18 @@
 spring:
   application:
-    name: Offence
+    name: offence
 server:
-  port: 0
+  port: 8191 #0
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
-    service-url:
+    serviceUrl:
       defaultZone: http://localhost:8761/eureka/
   instance:
     instance-id: ${spring.application.name}-${random.int}
     hostname: localhost
+
+logging:
+  file:
+    name: C:/LP Training/FinalProject/TrafficOffenceManagementSystem/offence-service/logs/Offence-Service-Logs.log

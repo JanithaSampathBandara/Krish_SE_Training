@@ -2,22 +2,30 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: driver-service
-          uri: lb://DRIVER
+        - id: driver #driver-service
+          uri: lb://driver #lb://Driver
           predicates:
             - Path=/services/drivers/**
-        - id: offence-service
-          uri: lb://OFFENCE
+        - id: offence #offence-service
+          uri: lb://offence #lb://OFFENCE
           predicates:
             - Path=/services/offences/**,/services/fines/**
-        - id: officer-service
-          uri: lb://OFFICER
+        - id: officer
+          uri: lb://officer
           predicates:
             - Path=/services/officers/**
-        - id: payment-service
-          uri: lb://PAYMENT
+        - id: payment
+          uri: lb://payment
           predicates:
             - Path=/services/payments/**
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:4200"
+            allowedMethods:
+              - GET
+              - POST
+              - OPTIONS
     discovery:
       enabled: true
   application:
@@ -26,10 +34,9 @@ eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
   instance:
     hostname: localhost
 server:
   port: 8989
+
 

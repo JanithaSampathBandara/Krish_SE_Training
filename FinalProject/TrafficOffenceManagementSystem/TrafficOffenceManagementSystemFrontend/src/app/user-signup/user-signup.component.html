@@ -1,0 +1,156 @@
+<div class="container">
+    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+    <div class="row">
+        <div class="col-md-6 mx-auto"> <!-- mx-auto class is to center the whole division-->
+            <div class="card" style="border:solid 3px darkred">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div style="text-align: center;">
+                                <img src="assets/sign-up.png" width="150px" style="border: 3px solid rgb(17, 219, 10)" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div style="text-align: center;">
+                                <h2>Sign Up</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <hr/><br/>
+                        </div>
+                    </div>
+
+       <!--            <div class="row">
+                        <div class="col">
+                            <div class="form-group>">
+                                <input type="text" class="form-control is-valid form-control-lg"  placeholder="First Name & Last Name"><br />
+                            </div>
+                        </div>
+                    </div>
+--> 
+                    <div class="row">
+                        <div class="col">   
+                        <div class="input-group mb-2">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text"><b>Name</b></div>
+                          </div>
+                          <input pattern="^[a-zA-Z_ ]*$" minlength="3" (change)="change(name)" #name="ngModel" required type="text" [ngClass]="[name.dirty && name.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', name.dirty && name.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]"  id="nameid" placeholder="Enter First Name & Last Name" [(ngModel)]="user.name" name="name">
+                          <!--{{nic.className}} 
+                     <br /> <div *ngIf="false" class="alert alert-danger">
+                        <span>This User Is Already Registered To The System.</span>
+                    </div>--> 
+                   
+                          
+                          
+                        </div>
+                        <div *ngIf="!validation.name && name.control.errors" class="alert alert-danger">
+                            <span width="50px">Please Check The Name Again</span>
+                    </div>
+                        <br />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">   
+                        <div class="input-group mb-2">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text"><b>NIC Number</b></div>
+                          </div>
+                          <input #nic="ngModel" minlength="9" (change)="nicChange(nic)" required type="text" [ngClass]="[nic.dirty && nic.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', nic.dirty && nic.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]" id="nicid" placeholder="Enter NIC Number" [(ngModel)]="user.nic" name="nic">
+                     <!--{{nic.className}} 
+                     <br /> <div *ngIf="false" class="alert alert-danger">
+                        <span>This User Is Already Registered To The System.</span>
+                    </div>--> 
+                     
+                        </div>
+                        <div *ngIf="!validation.nic && nic.control.errors" class="alert alert-danger">
+                            <span>Please Check The NIC Again</span>
+                        </div>
+                        <br />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">   
+                        <div class="input-group mb-2">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text"><b>Contact Number</b></div>
+                          </div>
+                          <input #contact="ngModel" (change)="contactChange(contact)" required type="text" pattern="^0[0-9]{9}" onKeyPress="if(this.value.length==10) return false;" [ngClass]="[contact.dirty && contact.control.invalid ? 'form-control form-control-lg is-invalid ' : 'form-control form-control-lg', contact.valid ? 'form-control form-control-lg is-valid' : 'form-control form-control-lg']" id="contactid" placeholder="Enter Contact Number" [(ngModel)]="user.contact" name="contact">
+                        <!--                          <input #contact="ngModel" required type="text" [ngClass]="{'form-control form-control-lg':contact, 'form-control form-control-lg is-valid':contact.control.touched, 'form-control form-control-lg is-invalid':contact.dirty}" id="inlineFormInputGroup" placeholder="Enter Contact Number" [(ngModel)]="user.contact" name="contact">
+-->                    
+                        </div>
+                         <div *ngIf="!validation.contact && contact.control.errors" class="alert alert-danger">
+                            <span>Please Check The Contact Number Again</span>
+                        </div>
+                        <br />
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col">   
+                        <div class="input-group mb-2">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text"><b>Password</b></div>
+                          </div>
+                          <input type="password" (change)="passwordChange(password)" #password="ngModel" required minlength="5" [ngClass]="[(password.control.dirty && password.control.valid) ? 'form-control form-control-lg is-valid' : 'form-control form-control-lg', (password.control.dirty && password.control.invalid) ? 'form-control form-control-lg is-invalid' : 'form-control form-control-lg' ]" id="passwordid" placeholder="Enter New Password" [(ngModel)]="user.password" name="password">
+                          
+                        </div>
+                         <div *ngIf="!validation.password && password.invalid" class="alert alert-danger">
+                            <span>Password Should Have More Than 5 Characters</span>
+                        </div>
+                        <br />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">   
+                        <div class="input-group mb-2">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text"><b>Confirm Password</b></div>
+                          </div>
+                          <input type="password"  #cnpassword="ngModel" required pattern="{{password.control.value}}" [ngClass]="[cnpassword.dirty && cnpassword.valid && password.value ? 'form-control form-control-lg is-valid' : 'form-control form-control-lg', cnpassword.dirty && cnpassword.control.invalid ? 'form-control form-control-lg is-invalid' : 'form-control form-control-lg']" id="cnpasswordid" placeholder="Enter Password Again" ngModel name="confirmpassword"> 
+                          
+                        </div>
+                         <div *ngIf="cnpassword.value != password.value && cnpassword.dirty" class="alert alert-danger">
+                            <span>Passwords Not Matching</span>
+                            
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <hr/>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6 mx-auto">
+                            <div class="form-group>">
+                            <input type ="submit" [disabled]="name.invalid || nic.invalid || contact.invalid || password.invalid || cnpassword.invalid" class="form-control btn btn-primary btn-block form-control-lg" id="signup" name="signup" value="Sign Up"> 
+                            </div>
+                            <h6 style="text-align: center;">Already Signed Up? <a routerLink="/login">Log in here</a></h6>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <a routerLink="#"> << Back to Home </a>
+        </div>
+    </div>
+    <h1>Role : {{role}}</h1>
+</form>
+</div>
+    
+              
+

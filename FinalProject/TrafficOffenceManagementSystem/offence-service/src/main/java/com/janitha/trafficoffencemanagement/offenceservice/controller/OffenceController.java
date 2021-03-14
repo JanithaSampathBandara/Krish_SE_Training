@@ -6,6 +6,8 @@ import com.janitha.trafficoffencemanagement.model.officerservice.Officer;
 import com.janitha.trafficoffencemanagement.offenceservice.exception.ErrorDetails;
 import com.janitha.trafficoffencemanagement.offenceservice.exception.OffenceNotFoundException;
 import com.janitha.trafficoffencemanagement.offenceservice.service.OffenceService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +16,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "services/offences")
 public class OffenceController {
+
+    Logger logger = LoggerFactory.getLogger(OffenceController.class);
 
     Response response = new Response();
 
@@ -30,6 +35,7 @@ public class OffenceController {
 
     @GetMapping(value = "{offenceId}")
     public ResponseEntity getOffenceById(@PathVariable int offenceId){
+        System.out.println("getOffenceById");
         try{
 
             return new ResponseEntity<Offence>(offenceService.getOffenceById(offenceId), HttpStatus.OK);
@@ -41,6 +47,9 @@ public class OffenceController {
             return new ResponseEntity<Response>(response, HttpStatus.OK);
 */
         }catch(OffenceNotFoundException offenceNotFoundException){
+
+            logger.error(offenceNotFoundException.getMessage());
+
             response.setStatusCode(0);
             response.setMessage(offenceNotFoundException.getMessage());
             response.setData(null);
@@ -62,6 +71,9 @@ public class OffenceController {
             return new ResponseEntity<Response>(response, HttpStatus.OK);
 
         }catch(OffenceNotFoundException offenceNotFoundException){
+
+            logger.error(offenceNotFoundException.getMessage());
+
             response.setStatusCode(-99);
             response.setMessage(offenceNotFoundException.getMessage());
             response.setData(null);
@@ -82,6 +94,9 @@ public class OffenceController {
             return new ResponseEntity<Response>(response, HttpStatus.OK);
 
         } catch (OffenceNotFoundException offenceNotFoundException) {
+
+            logger.error(offenceNotFoundException.getMessage());
+
             response.setStatusCode(0);
             response.setMessage(offenceNotFoundException.getMessage());
             response.setData(null);
@@ -99,6 +114,9 @@ public class OffenceController {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
 
         }catch(OffenceNotFoundException offenceNotFoundException){
+
+            logger.error(offenceNotFoundException.getMessage());
+
             response.setStatusCode(-99);
             response.setMessage(offenceNotFoundException.getMessage());
             response.setData(null);

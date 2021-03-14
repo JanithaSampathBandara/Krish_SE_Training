@@ -12,5 +12,7 @@ public interface FineService {
     public List<Fine> getFineByLicenseNo(String licenseNo);
     public int updateFineStatus(String licenseNo, String status);
     public List<Integer> getUnpaidOffenceList(String licenseNo);
+    public Fine updateFine(Fine fine, int fineId);
+    public List<Fine> getAllUnpaidFines();
 
 }

@@ -1,0 +1,196 @@
+<div class="container">
+    <form #driverForm="ngForm" (ngSubmit)="onSubmit(driverForm)">
+        <div class="row">
+            <div class="col-md-6 mx-auto"> <!-- mx-auto class is to center the whole division-->
+                <div class="card" style="border:solid 3px darkred">
+                    <div class="card-body" >
+                        <div class="row">
+                            <div class="col">
+                                <div style="text-align: center;">
+                                    <img src="assets/driver.png" width="150px" style="border: 3px solid rgb(17, 219, 10)" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div style="text-align: center;">
+                                    <h2>Driver Management</h2>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <hr/><br/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group mb-2">
+                                
+                                    <input pattern="^[a-zA-Z_ ]*$" minlength="8" #search="ngModel" required type="text" class="form-control form-control-lg"  id="licenseNo" placeholder="Enter License Number" [(ngModel)]="driver.licenseNo" name="licenseNo">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-primary" type="button" (click)="getDriverByLicense(driver.licenseNo)">Search Driver</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><br />
+
+                        <div class="row">
+                            <div class="col">   
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><b>Name</b></div>
+                                    </div>
+                          
+                                    <input pattern="^[a-zA-Z_ ]*$" minlength="3" #name="ngModel" required type="text" [ngClass]="[name.dirty && name.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', name.dirty && name.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]"  id="name" placeholder="Enter Driver's Name"  name="name" [(ngModel)]="driver.name">
+                          
+                                </div><br />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">   
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><b>Address</b></div>
+                                    </div>
+                          
+                                    <input #addressval="ngModel" minlength="5"  required type="text" [ngClass]="[addressval.dirty && addressval.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', addressval.dirty && addressval.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]" id="address" placeholder="Enter Driver's Address" [(ngModel)]="driver.address" name="address">
+                     
+                                </div><br />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">   
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><b>E-mail</b></div>
+                                    </div>
+                          
+                                    <input #emailaddr="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required type="email" [ngClass]="[emailaddr.dirty && emailaddr.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', emailaddr.dirty && emailaddr.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]" id="emailaddr" placeholder="Enter Driver's E-mail" [(ngModel)]="driver.email" name="email">
+                     
+                                </div><br />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">   
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><b>Gender</b></div>
+                                    </div>
+                          
+                                 <!--  <input #gender="ngModel" minlength="3"  required type="text" [ngClass]="[gender.dirty && gender.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', gender.dirty && gender.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]" id="gender" placeholder="Enter Driver's Gender" [(ngModel)]="driver.gender" name="gender">-->
+                                 <select #genderval="ngModel" required name="offic" [ngClass]="[genderval.dirty && genderval.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', genderval.dirty && genderval.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]" id="exampleFormControlSelect1" [(ngModel)]="gender">
+                                    <option value = "0" disabled selected="selected">Select The Gender</option>
+                                    <option value = "1">Male</option>
+                                    <option value = "2">Female</option>
+                                    <option value = "3">Other</option>
+                                  </select>
+                                  {{gender}}
+                                </div><br />
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col">   
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><b>Nic</b></div>
+                                    </div>
+                          
+                                    <input #nicval="ngModel" minlength="10"  required type="text" [ngClass]="[nicval.dirty && nicval.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', nicval.dirty && nicval.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]" id="nic" placeholder="Enter Driver's Nic" [(ngModel)]="driver.nic" name="nic">
+                     
+                                </div> <br />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">   
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><b>Phone</b></div>
+                                    </div>
+                          
+                                    <input #phoneval="ngModel" minlength="10" maxlength="10"  required type="text" pattern="\d*" [ngClass]="[phoneval.dirty && phoneval.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', phoneval.dirty && phoneval.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]" id="phone" placeholder="Enter Driver's Phone" [(ngModel)]="driver.phone" name="phone">
+                     
+                                </div><br />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">   
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><b>DOB</b></div>
+                                    </div>
+                                    <input #dobval="ngModel" required type="date" min="1800-01-01" max={{ctoday}} id="birthday" name="birthday" [(ngModel)]="driver.dob" [ngClass]="[dobval.dirty && dobval.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', dobval.dirty && dobval.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]">
+
+                                </div><br />
+                            </div>
+                        </div>
+      
+
+                        <div class="row">
+                            <div class="col">   
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><b>Password</b></div>
+                                    </div>
+                          
+                                    <input #passwordval="ngModel" minlength="3"  required type="text" [ngClass]="[passwordval.dirty && passwordval.valid && passwordval.touched ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', passwordval.dirty && passwordval.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]" id="password" placeholder="Enter Driver's Password" [(ngModel)]="driver.password" name="password">
+                     
+                                </div><br />
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col">   
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><b>Confirm Password</b></div>
+                                    </div>
+                                    <input type="password"  #cnpassword="ngModel" required pattern="{{passwordval.control.value}}" [ngClass]="[cnpassword.dirty && cnpassword.valid && passwordval.valid ? 'form-control form-control-lg is-valid' : 'form-control form-control-lg', cnpassword.dirty && cnpassword.control.invalid ? 'form-control form-control-lg is-invalid' : 'form-control form-control-lg']" id="cnpasswordid" placeholder="Enter Password Again" ngModel name="confirmpassword"> 
+                          
+                                </div>
+
+                            <div *ngIf="cnpassword.value != passwordval.value && cnpassword.dirty" class="alert alert-danger">
+                            <span>Passwords Not Matching</span>
+                            </div>
+                            </div>
+                        </div>
+                    
+                        <div class="row">
+                            <div class="col">
+                                <hr/>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6 mx-auto">
+                                <div class="form-group>">
+                                    <input [disabled]="name.invalid || addressval.invalid || emailaddr.invalid || nicval.invalid || phoneval.invalid || passwordval.invalid || dobval.invalid || genderval.invalid || cnpassword.invalid" (click)="createDriver()" type ="submit" class="form-control btn btn-success btn-block form-control-lg" id="Button2" name="add" value="Add"> 
+                                    <input [disabled]="name.invalid || addressval.invalid || emailaddr.invalid || nicval.invalid || phoneval.invalid || passwordval.invalid || dobval.invalid || genderval.invalid || cnpassword.invalid" (click)="updateDriver(driver.licenseNo, driver)" type ="submit" class="form-control btn btn-warning btn-block form-control-lg" id="Button2" name="update" value="Update">
+                                    <input [disabled]="name.invalid || addressval.invalid || emailaddr.invalid || nicval.invalid || phoneval.invalid || passwordval.invalid || dobval.invalid || genderval.invalid || cnpassword.invalid" (click)="deleteDriver(driver.licenseNo)" type ="submit" class="form-control btn btn-danger btn-block form-control-lg" id="Button2" name="delete" value="Delete">
+                                </div>
+                                <h6 style="text-align: center;">Already Signed Up? <a routerLink="/login">Log in here</a></h6>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <a routerLink="/home"> << Back to Home </a>
+            </div>
+        </div>
+    </form>
+</div>
+    
+    

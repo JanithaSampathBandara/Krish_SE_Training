@@ -1,0 +1,9 @@
+{
+    "/services/*":{
+        "target": "http://localhost:8989",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": false,
+        "pathRewrite": {"^/services" : "http://localhost:8989/services"}
+    }
+}

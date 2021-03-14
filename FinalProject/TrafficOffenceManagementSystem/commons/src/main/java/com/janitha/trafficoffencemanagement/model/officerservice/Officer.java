@@ -5,6 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -25,9 +26,10 @@ public class Officer {
     @NotBlank(message = "Gender is mandatory")
     private String gender;
     @NotNull(message = "Date of birth is mandatory") //@NotBlank(message = "Date of birth is mandatory")
-    private Date dob;
+    private LocalDate dob;
     @NotBlank(message = "Password is mandatory")
     private String password;
+    private String email;
 
     public int getPoliceId() {
         return policeId;
@@ -77,12 +79,18 @@ public class Officer {
         this.gender = gender;
     }
 
-    public Date getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+  /*  public void setDob(LocalDate dob) {
         this.dob = dob;
+    }
+
+   */
+
+    public void setDob(String dob) {
+        this.dob = dob != null ? LocalDate.parse(dob) : null;
     }
 
     public String getPassword() {
@@ -91,5 +99,13 @@ public class Officer {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

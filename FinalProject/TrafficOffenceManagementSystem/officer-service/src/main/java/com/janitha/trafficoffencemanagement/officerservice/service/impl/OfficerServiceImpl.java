@@ -30,7 +30,7 @@ public class OfficerServiceImpl implements OfficerService {
             return officer.get();
         }
         else{
-            throw new OfficerNotFoundException("No officer is found for this id : " + officerId);
+            throw new OfficerNotFoundException("No officer found for this id : " + officerId);
         }
     }
 
@@ -53,8 +53,9 @@ public class OfficerServiceImpl implements OfficerService {
             existingOfficer.get().setAddress(officer.getAddress());
             existingOfficer.get().setNic(officer.getNic());
             existingOfficer.get().setPhone(officer.getPhone());
+            existingOfficer.get().setEmail(officer.getEmail());
             existingOfficer.get().setGender(officer.getGender());
-            existingOfficer.get().setDob(officer.getDob());
+            existingOfficer.get().setDob(officer.getDob().toString()); // previous -> existingOfficer.get().setDob(officer.getDob());
             existingOfficer.get().setPassword(officer.getPassword());
             return officerRepository.save(existingOfficer.get());
         }

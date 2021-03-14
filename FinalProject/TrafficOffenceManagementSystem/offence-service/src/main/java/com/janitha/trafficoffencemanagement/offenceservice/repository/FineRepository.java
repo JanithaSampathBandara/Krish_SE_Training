@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface FineRepository extends JpaRepository<Fine, Integer> {
 
-    @Query("SELECT fine FROM Fine fine WHERE fine.licenseNo = ?1")
+    @Query("SELECT fine FROM Fine fine WHERE fine.licenseNo = ?1 AND fine.status = 'not-paid'")
     Optional<List<Fine>> findFineByLicenseNo(String licenseNo);
 
 
@@ -22,5 +22,8 @@ public interface FineRepository extends JpaRepository<Fine, Integer> {
 
     @Query("SELECT fine.offenceId FROM Fine fine WHERE fine.licenseNo = ?1 AND fine.status = 'not-paid'")
     public List<Integer> getUnpaidOffenceList(String licenseNo);
+
+    @Query("SELECT fine FROM Fine fine WHERE fine.status = 'not-paid'")
+    public List<Fine> getAllUnpaidFines();
 
 }

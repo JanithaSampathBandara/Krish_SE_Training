@@ -1,0 +1,96 @@
+
+
+<div class="container">
+    <form #offenceForm="ngForm" (ngSubmit)="onSubmit(offenceForm)">
+        <div class="row">
+            <div class="col-md-6 mx-auto"> <!-- mx-auto class is to center the whole division-->
+                <div class="card" style="border:solid 3px darkred">
+                    <div class="card-body" >
+                        <div class="row">
+                            <div class="col">
+                                <div style="text-align: center;">
+                                    <img src="assets/offence.jpg" width="150px" style="border: 3px solid rgb(17, 219, 10)" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div style="text-align: center;">
+                                    <h2>Offence Management</h2>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <hr/><br/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group mb-2">
+                                
+                                    <input oninput="this.value=this.value.slice(0,this.maxLength)" minlength="1"  maxlength="3" #offenceId="ngModel" required type="number" [ngClass]="[offenceId.dirty && offenceId.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', offenceId.dirty && offenceId.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]"  id="offenceId" placeholder="Enter Offence Id" [(ngModel)]="offence.offenceId" name="offence">
+                                
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-primary" type="button" (click)="getOffenceById(offence.offenceId)">Search Offence</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><br />
+
+                        <div class="row">
+                            <div class="col">   
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><b>Offence</b></div>
+                                    </div>
+                                    <!-- pattern="^[a-zA-Z_ ]*$" -->
+                                    <input minlength="3" #offenceName="ngModel" required type="text" [ngClass]="[offenceName.dirty && offenceName.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', offenceName.dirty && offenceName.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]"  id="offenceName" placeholder="Enter The Offence"  name="offencenme" [(ngModel)]="offence.offence">
+                                </div><br />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">   
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><b>Fine</b></div>
+                                    </div>
+                          
+                                    <input oninput="this.value=this.value.slice(0,this.maxLength)" pattern=".{3,6}" #fine="ngModel" minlength="3" maxlength="6" required type="number" [ngClass]="[fine.dirty && fine.valid ? 'form-control form-control-lg is-valid': 'form-control form-control-lg', fine.dirty && fine.invalid ? 'form-control form-control-lg is-invalid': 'form-control form-control-lg' ]" id="fine" placeholder="Enter Fine Of Offence" [(ngModel)]="offence.fine" name="fineval">
+                                </div><br />
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col">
+                                <hr/>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6 mx-auto">
+                                <div class="form-group>">
+                                    <input [disabled]="offenceName.invalid || fine.invalid || offenceId.invalid" (click)="createOffence()" type ="submit" class="form-control btn btn-success btn-block form-control-lg" id="add" name="add" value="Add"> 
+                                    <input [disabled]="offenceName.invalid || fine.invalid || offenceId.invalid" (click)="updateOffence(offence.offenceId, offence)" type ="submit" class="form-control btn btn-warning btn-block form-control-lg" id="update" name="update" value="Update">
+                                    <input [disabled]="offenceName.invalid || fine.invalid || offenceId.invalid" (click)="deleteOffence(offence.offenceId)" type ="submit" class="form-control btn btn-danger btn-block form-control-lg" id="delete" name="delete" value="Delete">
+                                </div>
+                                <h6 style="text-align: center;">Already Signed Up? <a routerLink="/login">Log in here</a></h6>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <a routerLink="#"> << Back to Home </a>
+            </div>
+        </div>
+    </form>
+</div>
+    
+    

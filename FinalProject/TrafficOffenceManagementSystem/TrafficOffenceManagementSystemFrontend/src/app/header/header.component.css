@@ -1,0 +1,23 @@
+.my-carousel{
+    position: static;
+top: 0%;
+width: 100%;
+}
+
+.my-nav{
+position: relative; /* set to fixed to transparent with courosoul */
+width: 100%;
+z-index: 999;
+background: none;
+border: 0;
+border-radius: 0;
+}
+
+.my-carousel img{
+    width:100%;
+    height:500px;
+}
+
+.back{
+    background-color: #e3f2fd;
+}

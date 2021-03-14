@@ -1,16 +1,25 @@
 server:
-  port: 8282
+  port: 9191
 spring:
-  security:
-    user:
-      name: janitha
-      password: janitha1234
-      roles: ADMIN,USER
-security:
-  oauth2:
-    client:
-      client-id: mobile
-      client-secret: pin
-      access-token-validity-seconds: 3600
-      authorized-grant-types: refresh_token,authorization_code,password,client_credentials
-      scope: READ,WRITE
+  datasource:
+    url: jdbc:mysql://localhost:3306/authorizationdb?createDatabaseIfNotExist=true
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    initialization-mode: always
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+logging:
+  level:
+    org:
+      hibernate:
+        type: trace
+  file:
+    name: C:/LP Training/FinalProject/TrafficOffenceManagementSystem/oauth-server/logs/Oauth-Service-Logs.log

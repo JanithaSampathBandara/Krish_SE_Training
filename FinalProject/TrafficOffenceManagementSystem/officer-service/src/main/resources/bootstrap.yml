@@ -1,14 +1,15 @@
 spring:
   application:
-    name: Officer
+    name: officer
 server:
-  port: 0
+  port: 8193 #0
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
   instance:
     instance-id: ${spring.application.name}-${random.int}
     hostname: localhost
+logging:
+  file:
+    name: C:/LP Training/FinalProject/TrafficOffenceManagementSystem/officer-service/logs/Officer-Service-Logs.log

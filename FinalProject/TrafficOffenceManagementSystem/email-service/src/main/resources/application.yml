@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: email
+  main:
+    allow-bean-definition-overriding: true
+  mail:
+    host: smtp.gmail.com
+    username: ruranasinghe123@gmail.com
+    password: ruwanthi123@#1
+    port: 465
+    default-encoding: UTF-8
+    #spring.mail.properties.mail.smtp.auth=true
+    #spring.mail.properties.mail.smtp.starttls.enable=true
+    protocol: smtps
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            enable: false
+
+server:
+  port: 5656
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    instance-id: ${spring.application.name}-${random.int}
+    hostname: localhost
+#security:
+#  oauth2:
+#    resource:
+ #     token-info-uri: http://localhost:9191/oauth/check_token
+ #   client:
+ #     client-id: mobile
+ #     client-secret: pin
+logging:
+  file:
+    name: C:/LP Training/FinalProject/TrafficOffenceManagementSystem/email-service/logs/Email-Service-Logs.log

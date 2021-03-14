@@ -7,9 +7,12 @@ import com.janitha.trafficoffencemanagement.driverservice.service.impl.DriverSer
 import com.janitha.trafficoffencemanagement.dto.Response;
 import com.janitha.trafficoffencemanagement.model.driverservice.Driver;
 import org.apache.velocity.exception.ResourceNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,11 +22,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/services/drivers")
 public class DriverController {
 
-    Response response = new Response();
+    Logger logger = LoggerFactory.getLogger(DriverController.class);
+
+    Response driverResponse = new Response();
 
     @Autowired
     DriverService driverService;
@@ -34,26 +40,31 @@ public class DriverController {
     }
 */
     @PostMapping
+    @PreAuthorize("hasAuthority('create_driver')")
     public ResponseEntity<Driver> createDriver(@RequestBody Driver driver){
          return new ResponseEntity<Driver>(driverService.createDriver(driver),HttpStatus.CREATED);
     }
 
     @GetMapping("/{licenseNo}")
+    @PreAuthorize("hasAuthority('read_driver')")
     public ResponseEntity<Response> getDriverByLicense(@PathVariable String licenseNo){
-
+        System.out.println("inside getDriverByLicense");
         try{
             Driver driver = driverService.getDriverByLicense(licenseNo);
-            response.setStatusCode(0);
-            response.setMessage("Driver Found");
-            response.setData(driver);
-            return new ResponseEntity<Response>(response, HttpStatus.OK);
+            driverResponse.setStatusCode(0);
+            driverResponse.setMessage("Driver Found");
+            driverResponse.setData(driver);
+            System.out.println("driver respone from driver controller"+ driverResponse);
+            return new ResponseEntity<Response>(driverResponse, HttpStatus.OK);
 
         }catch(DriverNotFoundException driverNotFoundException){
 
-            response.setStatusCode(-99);
-            response.setMessage(driverNotFoundException.getMessage());
-            response.setData(null);
-            return new ResponseEntity<Response>(response, HttpStatus.OK);
+            logger.error(driverNotFoundException.getMessage());
+
+            driverResponse.setStatusCode(-99);
+            driverResponse.setMessage(driverNotFoundException.getMessage());
+            driverResponse.setData(null);
+            return new ResponseEntity<Response>(driverResponse, HttpStatus.OK);
 
            // throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Driver not found");
      /*       ErrorDetails errorDetails = new ErrorDetails();
@@ -81,40 +92,47 @@ public class DriverController {
 
     }
     @GetMapping("nic/{nic}")
+    @PreAuthorize("hasAuthority('read_driver')")
     public ResponseEntity<Response> getDriverByNic(@PathVariable("nic") String nic){
 
         try{
             Driver driver = driverService.getDriverByNic(nic);
-            response.setStatusCode(0);
-            response.setMessage("Driver Found");
-            response.setData(driver);
-            return new ResponseEntity<Response>(response, HttpStatus.OK);
+            driverResponse.setStatusCode(0);
+            driverResponse.setMessage("Driver Found");
+            driverResponse.setData(driver);
+            return new ResponseEntity<Response>(driverResponse, HttpStatus.OK);
 
         }catch(DriverNotFoundException driverNotFoundException){
 
-            response.setStatusCode(-99);
-            response.setMessage(driverNotFoundException.getMessage());
-            response.setData(null);
-            return new ResponseEntity<Response>(response, HttpStatus.OK);
+            logger.error(driverNotFoundException.getMessage());
+
+            driverResponse.setStatusCode(-99);
+            driverResponse.setMessage(driverNotFoundException.getMessage());
+            driverResponse.setData(null);
+            return new ResponseEntity<Response>(driverResponse, HttpStatus.OK);
         }
 
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('read_driver')")
     public ResponseEntity<Response> getAllDrivers(){
         try{
             List<Driver> drivers = driverService.getAllDrivers();
 
-            response.setStatusCode(0);
-            response.setMessage("Drivers Found");
-            response.setData(drivers);
-            return new ResponseEntity<Response>(response, HttpStatus.OK);
+            driverResponse.setStatusCode(0);
+            driverResponse.setMessage("Drivers Found");
+            driverResponse.setData(drivers);
+            return new ResponseEntity<Response>(driverResponse, HttpStatus.OK);
 
         }catch(DriverNotFoundException driverNotFoundException){
-            response.setStatusCode(-99);
-            response.setMessage(driverNotFoundException.getMessage());
-            response.setData(null);
-            return new ResponseEntity<Response>(response, HttpStatus.OK);
+
+            logger.error(driverNotFoundException.getMessage());
+
+            driverResponse.setStatusCode(-99);
+            driverResponse.setMessage(driverNotFoundException.getMessage());
+            driverResponse.setData(null);
+            return new ResponseEntity<Response>(driverResponse, HttpStatus.OK);
         }
     }
 
@@ -136,34 +154,42 @@ public class DriverController {
     }
 */
     @PutMapping("{licenseNo}")
+    @PreAuthorize("hasAuthority('update_driver')")
     public ResponseEntity<Response> updateDriver(@RequestBody Driver driver, @PathVariable String licenseNo){
         try{
 
             Driver updatedDriver = driverService.updateDriver(driver, licenseNo);
-            response.setStatusCode(0);
-            response.setMessage("Driver Updated");
-            response.setData(updatedDriver);
-            return new ResponseEntity<Response>(response, HttpStatus.OK);
+            driverResponse.setStatusCode(0);
+            driverResponse.setMessage("Driver Updated");
+            driverResponse.setData(updatedDriver);
+            return new ResponseEntity<Response>(driverResponse, HttpStatus.OK);
 
         }catch(DriverNotFoundException driverNotFoundException){
-            response.setStatusCode(-99);
-            response.setMessage(driverNotFoundException.getMessage());
-            response.setData(null);
-            return new ResponseEntity<Response>(response, HttpStatus.OK);
+
+            logger.error(driverNotFoundException.getMessage());
+
+            driverResponse.setStatusCode(-99);
+            driverResponse.setMessage(driverNotFoundException.getMessage());
+            driverResponse.setData(null);
+            return new ResponseEntity<Response>(driverResponse, HttpStatus.OK);
 
         }
     }
 
     @DeleteMapping("{licenseNo}")
+    @PreAuthorize("hasAuthority('delete_driver')")
     public ResponseEntity deleteDriver(@PathVariable String licenseNo){
         try{
             driverService.deleteDriver(licenseNo);
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         } catch(DriverNotFoundException driverNotFoundException){
-            response.setStatusCode(-99);
-            response.setMessage(driverNotFoundException.getMessage());
-            response.setData(null);
-            return new ResponseEntity<Response>(response, HttpStatus.OK);
+
+            logger.error(driverNotFoundException.getMessage());
+
+            driverResponse.setStatusCode(-99);
+            driverResponse.setMessage(driverNotFoundException.getMessage());
+            driverResponse.setData(null);
+            return new ResponseEntity<Response>(driverResponse, HttpStatus.OK);
     /*
             ErrorDetails errorDetails = new ErrorDetails();
             errorDetails.setResponseCode(404);

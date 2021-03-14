@@ -3,7 +3,9 @@ package com.janitha.trafficoffencemanagement.model.offenceservice;
 import com.janitha.trafficoffencemanagement.model.officerservice.Officer;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -11,17 +13,18 @@ import java.util.List;
 public class Fine {
 
     @Id
+    @GeneratedValue
     private int fineId;
     private String licenseNo;
     private String nic;
     private String vehicleNo;
-    private LocalDateTime dateAndTimeOfOffence;
+    private LocalDate dateAndTimeOfOffence;
     public String place;
     public int offenceId; // In frontend there will be offence description and offencdId both in a dropdown list
-    public LocalDateTime validFrom;
-    public LocalDateTime validTo;
+    public LocalDate validFrom;
+    public LocalDate validTo;
     public String court;
-    public LocalDateTime courtDate;
+    public LocalDate courtDate;
     public String policeStation;
     public int issuingOfficer;
     public String status; //paid or not-paid
@@ -58,11 +61,11 @@ public class Fine {
         this.vehicleNo = vehicleNo;
     }
 
-    public LocalDateTime getDateAndTimeOfOffence() {
+    public LocalDate getDateAndTimeOfOffence() {
         return dateAndTimeOfOffence;
     }
 
-    public void setDateAndTimeOfOffence(LocalDateTime dateAndTimeOfOffence) {
+    public void setDateAndTimeOfOffence(LocalDate dateAndTimeOfOffence) {
         this.dateAndTimeOfOffence = dateAndTimeOfOffence;
     }
 
@@ -82,21 +85,7 @@ public class Fine {
         this.offenceId = offenceId;
     }
 
-    public LocalDateTime getValidFrom() {
-        return validFrom;
-    }
 
-    public void setValidFrom(LocalDateTime validFrom) {
-        this.validFrom = validFrom;
-    }
-
-    public LocalDateTime getValidTo() {
-        return validTo;
-    }
-
-    public void setValidTo(LocalDateTime validTo) {
-        this.validTo = validTo;
-    }
 
     public String getCourt() {
         return court;
@@ -106,11 +95,27 @@ public class Fine {
         this.court = court;
     }
 
-    public LocalDateTime getCourtDate() {
+    public LocalDate getValidFrom() {
+        return validFrom;
+    }
+
+    public void setValidFrom(LocalDate validFrom) {
+        this.validFrom = validFrom;
+    }
+
+    public LocalDate getValidTo() {
+        return validTo;
+    }
+
+    public void setValidTo(LocalDate validTo) {
+        this.validTo = validTo;
+    }
+
+    public LocalDate getCourtDate() {
         return courtDate;
     }
 
-    public void setCourtDate(LocalDateTime courtDate) {
+    public void setCourtDate(LocalDate courtDate) {
         this.courtDate = courtDate;
     }
 
