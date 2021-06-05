@@ -35,7 +35,7 @@ public class UserRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    @LoadBalanced
+  //  @LoadBalanced
     @Bean
     RestTemplate getRestTemplate(RestTemplateBuilder restTemplateBuilder) {
         return restTemplateBuilder.build();
@@ -62,7 +62,8 @@ public class UserRepository {
 
         try{
             HttpEntity entity = new HttpEntity<>(user);
-            Response response = restTemplate.exchange("http://localhost:5656/services/emails/", HttpMethod.POST, entity, Response.class).getBody();
+            Response response = restTemplate.exchange("http://email-service:5656/services/emails/", HttpMethod.POST, entity, Response.class).getBody(); //Response response = restTemplate.exchange("http://localhost:5656/services/emails/", HttpMethod.POST, entity, Response.class).getBody();
+
         }catch(RestClientException restClientException){
             logger.error(restClientException.getMessage());
         }

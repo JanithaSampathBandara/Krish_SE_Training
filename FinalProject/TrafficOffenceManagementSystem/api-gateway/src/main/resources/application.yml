@@ -18,6 +18,10 @@ spring:
           uri: lb://payment
           predicates:
             - Path=/services/payments/**
+        - id: email
+          uri: lb://email
+          predicates:
+            - Path=/services/emails/**
       globalcors:
         cors-configurations:
           '[/**]':
@@ -34,9 +38,10 @@ eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
+    service-url: #new
+      defaultZone: http://discovery-service:8761/eureka/ #new
   instance:
-    hostname: localhost
+    hostname: discovery-service #172.17.0.2 #localhost
 server:
   port: 8989
-
 

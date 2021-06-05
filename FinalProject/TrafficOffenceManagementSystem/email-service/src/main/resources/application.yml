@@ -23,14 +23,17 @@ spring:
             enable: false
 
 server:
-  port: 5656
+  port: 5656 #0 #5656
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
+    service-url:
+      defaultZone: http://discovery-service:8761/eureka/
   instance:
     instance-id: ${spring.application.name}-${random.int}
-    hostname: localhost
+    hostname: discovery-service #localhost
+    prefer-ip-address: true
 #security:
 #  oauth2:
 #    resource:

@@ -116,6 +116,7 @@
              <!--   <version>2.4.1</version> -->
             </plugin>
         </plugins>
+        <finalName>docker-officer-service</finalName>
     </build>
 
 </project>

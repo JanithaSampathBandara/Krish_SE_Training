@@ -1,11 +1,13 @@
 server:
-  port: ${PORT:8761}
-
+  port: 8761 #${PORT:8761}
 eureka:
   client:
     registerWithEureka: false
     fetchRegistry: false
+
   server:
     waitTimeInMsWhenSyncEmpty: 0
+    peer-node-read-timeout-ms: 20000
+    peer-node-connect-timeout-ms: 20000
   datacenter: Colombo
   environment: Production

@@ -2,9 +2,9 @@ server:
   port: 9191
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/authorizationdb?createDatabaseIfNotExist=true
+    url: jdbc:mysql://mysql-standalone:3306/authorizationdb?createDatabaseIfNotExist=true&useSSL=false #jdbc:mysql://localhost:3306/authorizationdb?createDatabaseIfNotExist=true
     username: root
-    password:
+    password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
     initialization-mode: always
   jpa:

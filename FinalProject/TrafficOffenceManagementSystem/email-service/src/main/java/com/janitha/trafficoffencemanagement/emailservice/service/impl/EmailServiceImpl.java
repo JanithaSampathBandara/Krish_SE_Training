@@ -83,7 +83,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(fixedRate = 1000000)
   //  @Scheduled(cron = "@daily")
   //  @Scheduled(cron = "0 0 0 * * *")
     public void sendReminderEmails() {
@@ -104,7 +104,7 @@ public class EmailServiceImpl implements EmailService {
 
             HttpEntity entity = new HttpEntity<>(bodyParamMap, headers);
 
-            Token token = restTemplate.exchange("http://localhost:9191/oauth/token", HttpMethod.POST, entity, Token.class).getBody();
+            Token token = restTemplate.exchange("http://oauth-server:9191/oauth/token", HttpMethod.POST, entity, Token.class).getBody(); //Token token = restTemplate.exchange("http://localhost:9191/oauth/token", HttpMethod.POST, entity, Token.class).getBody();
 
             System.out.println(token.getAccess_token());
 

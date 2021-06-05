@@ -2,14 +2,17 @@ spring:
   application:
     name: payment
 server:
-  port: 8888 #0
+  port: 0 #8888 #0
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
+    service-url:
+      defaultZone: http://discovery-service:8761/eureka/ #http://172.17.0.2:8761/eureka/
   instance:
     instance-id: ${spring.application.name}-${random.int}
-    hostname: localhost
+    hostname: discovery-service #172.17.0.2 #localhost
+    prefer-ip-address: true
 logging:
   file:
     name: C:/LP Training/FinalProject/TrafficOffenceManagementSystem/payment-service/logs/Payment-Service-Logs.log

@@ -2,14 +2,17 @@ spring:
   application:
     name: officer
 server:
-  port: 8193 #0
+  port: 0 #8193 #0
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
+    service-url:
+      defaultZone: http://discovery-service:8761/eureka/ #http://172.17.0.2:8761/eureka/
   instance:
     instance-id: ${spring.application.name}-${random.int}
-    hostname: localhost
+    hostname: discovery-service #172.17.0.2 #localhost
+    prefer-ip-address: true
 logging:
   file:
     name: C:/LP Training/FinalProject/TrafficOffenceManagementSystem/officer-service/logs/Officer-Service-Logs.log

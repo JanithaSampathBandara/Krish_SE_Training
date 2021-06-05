@@ -116,6 +116,8 @@
              <!--   <version>2.4.1</version> -->
             </plugin>
         </plugins>
+        <finalName>docker-payment-service</finalName>
+
     </build>
 
 </project>
